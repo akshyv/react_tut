@@ -6,9 +6,12 @@ const { v4: uuidv4 } = require("uuid");
 
 const LOCAL_STORAGE_KEY = "todoApp.todos";
 function App() {
-  const [todos, setTodos] = useState([
-    { id: 1, name: "Todo1", complete: true },
+  const [todos, setTodos] = useState([]);
+
+  const [todos1, setTodos1] = useState([
+    { id: uuidv4, name: "New Task2", complete: true },
   ]);
+
   const todoNameRef = useRef(); //useRef is inbuilt hook
 
   useEffect(() => {
@@ -27,6 +30,10 @@ function App() {
     const todo = newTodos.find((todo) => todo.id === id);
     todo.complete = !todo.complete;
     setTodos(newTodos);
+    const newTodos1 = [...todos1];
+    const todo1 = newTodos1.find((todo) => todo.id === id);
+    todo1.complete = !todo1.complete;
+    setTodos1(newTodos1);
   }
 
   function handleAddTodo(e) {
@@ -41,6 +48,8 @@ function App() {
   function handleClearTodos() {
     const newTodos = todos.filter((todo) => !todo.complete);
     setTodos(newTodos);
+    const newTodos1 = todos1.filter((todo) => !todo.complete);
+    setTodos1(newTodos1);
   }
 
   function onDragOver(e) {
@@ -48,12 +57,14 @@ function App() {
   }
 
   function onDrop(e) {
-    let source_state = e.dataTransfer.getData("text/plain");
+    let source_state = JSON.parse(e.dataTransfer.getData("text/plain"));
     // let sourceIdEl = document.getElementById(sourceId);
     // let sourceIdParentEl = sourceIdEl.parentElement;
     // let targetEl = document.getElementById(e.target.id);
     // let targetParentEl = targetEl.parentElement;
     // console.log("drop eid: ", e.id, " eclasname:", e.className);
+    handleAddTodo1(source_state);
+    del_source_state(source_state);
     console.log(
       "target: ",
       e.target.id,
@@ -61,6 +72,19 @@ function App() {
       source_state,
       " ,sourceId: "
     );
+  }
+
+  function del_source_state(task) {
+    console.log(task);
+    let newTodos = todos.filter((titer) => titer.id !== task.id);
+    setTodos(newTodos);
+  }
+
+  function handleAddTodo1(task) {
+    setTodos1((prevTodos1) => {
+      return [...prevTodos1, task];
+    });
+    console.log(task);
   }
 
   return (
@@ -85,7 +109,7 @@ function App() {
           }}
         >
           <h4>On-process</h4>
-          {/* <TodoList todos={todos} toggleTodo={toggleTodo} /> */}
+          <TodoList todos={todos1} toggleTodo={toggleTodo} />
         </div>
         <div id="done" className="panel">
           <h4>Done</h4>

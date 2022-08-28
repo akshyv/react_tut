@@ -9,7 +9,7 @@ export default function Todo({ todo, toggleTodo }) {
   function handleDrag(e) {
     // console.log({ todo });
     // console.log(".........", e);
-    e.dataTransfer.setData("text/plain", JSON.stringify(todo), e.pa);
+    e.dataTransfer.setData("text/plain", JSON.stringify(todo));
     // e.dataTransfer.setData("text/plain", { todo }.id);
   }
   // handleDragOver = (event) => {
