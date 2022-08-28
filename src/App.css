@@ -1,0 +1,27 @@
+.panelarea{
+    display:flex;
+    flex-direction: row;
+}
+
+.panel {
+    width: 25%;    
+    min-height: 30%;
+    border-style: groove;
+    border: 15px solid dark black;
+    padding: 30px 20px;
+    margin: 20px;
+    background: transparent;
+    text-align: left;
+    align-content: center;
+}
+.tasks {
+
+    border: solid #000;
+    height: 10%;
+    width: 100%; 
+    padding: 10px;   
+    border-radius: 10px;
+    background: rgb(190, 184, 184);
+    margin: 2%;
+    text-align: center;
+}

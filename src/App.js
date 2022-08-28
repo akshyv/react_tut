@@ -1,11 +1,13 @@
-import React, { useState, useRef, useEffect } from 'react';
-import TodoList from './TodoList';
-const { v4: uuidv4 } = require('uuid');
+import React, { useState, useRef, useEffect } from "react";
+import TodoList from "./TodoList";
+import "./App.css";
 
-const LOCAL_STORAGE_KEY = 'todoApp.todos';
+const { v4: uuidv4 } = require("uuid");
+
+const LOCAL_STORAGE_KEY = "todoApp.todos";
 function App() {
   const [todos, setTodos] = useState([
-    { id: 1, name: 'Todo1', complete: true },
+    { id: 1, name: "Todo1", complete: true },
   ]);
   const todoNameRef = useRef(); //useRef is inbuilt hook
 
@@ -29,7 +31,7 @@ function App() {
 
   function handleAddTodo(e) {
     const name = todoNameRef.current.value;
-    if (name === '') return;
+    if (name === "") return;
     setTodos((prevTodos) => {
       return [...prevTodos, { id: uuidv4(), name: name, complete: false }];
     });
@@ -42,11 +44,22 @@ function App() {
 
   return (
     <>
-      <TodoList todos={todos} toggleTodo={toggleTodo} />
       <input ref={todoNameRef} type="text" />
       <button onClick={handleAddTodo}>Add to do</button>
       <button onClick={handleClearTodos}>clear complete</button>
       <div>{todos.filter((todo) => !todo.complete).length} left to do</div>
+      <div className="panelarea">
+        <div id="to-do" className="panel">
+          <h4>To-Do</h4>
+          <TodoList todos={todos} toggleTodo={toggleTodo} />
+        </div>
+        <div id="on-process" className="panel">
+          <h4>On-process</h4>
+        </div>
+        <div id="done" className="panel">
+          <h4>Done</h4>
+        </div>
+      </div>
     </>
   );
 }
