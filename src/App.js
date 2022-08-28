@@ -37,9 +37,30 @@ function App() {
     });
     console.log(name);
   }
+
   function handleClearTodos() {
     const newTodos = todos.filter((todo) => !todo.complete);
     setTodos(newTodos);
+  }
+
+  function onDragOver(e) {
+    e.preventDefault();
+  }
+
+  function onDrop(e) {
+    let source_state = e.dataTransfer.getData("text/plain");
+    // let sourceIdEl = document.getElementById(sourceId);
+    // let sourceIdParentEl = sourceIdEl.parentElement;
+    // let targetEl = document.getElementById(e.target.id);
+    // let targetParentEl = targetEl.parentElement;
+    // console.log("drop eid: ", e.id, " eclasname:", e.className);
+    console.log(
+      "target: ",
+      e.target.id,
+      " ,source_state: ",
+      source_state,
+      " ,sourceId: "
+    );
   }
 
   return (
@@ -53,8 +74,18 @@ function App() {
           <h4>To-Do</h4>
           <TodoList todos={todos} toggleTodo={toggleTodo} />
         </div>
-        <div id="on-process" className="panel">
+        <div
+          id="on-process"
+          className="panel"
+          onDragOver={(e) => {
+            onDragOver(e);
+          }}
+          onDrop={(e) => {
+            onDrop(e);
+          }}
+        >
           <h4>On-process</h4>
+          {/* <TodoList todos={todos} toggleTodo={toggleTodo} /> */}
         </div>
         <div id="done" className="panel">
           <h4>Done</h4>
